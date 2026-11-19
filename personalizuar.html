@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#073f40">
-  <meta name="description" content="Planifikoni Umren tuaj të personalizuar me UMRA Travel. Zgjidhni datat, aeroportin, hotelin dhe kohëzgjatjen e qëndrimit.">
-  <title>Umre e personalizuar | UMRA Travel</title>
-  <link rel="icon" type="image/jpeg" href="assets/images/umra-logo-source.jpg">
+  <meta name="description" content="Planifikoni Umre të personalizuar nga Shqipëria. Zgjidhni datat, aeroportin, hotelin dhe kohëzgjatjen; kërkoni ofertë për individë ose familje."><meta property="og:locale" content="sq_AL"><meta property="og:site_name" content="UMRA Travel"><meta property="og:type" content="website"><meta property="og:title" content="Umre e Personalizuar nga Shqipëria | UMRA Travel"><meta property="og:description" content="Planifikoni Umre të personalizuar nga Shqipëria. Zgjidhni datat, aeroportin, hotelin dhe kohëzgjatjen; kërkoni ofertë për individë ose familje."><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Umre e Personalizuar nga Shqipëria | UMRA Travel"><meta name="twitter:description" content="Planifikoni Umre të personalizuar nga Shqipëria. Zgjidhni datat, aeroportin, hotelin dhe kohëzgjatjen; kërkoni ofertë për individë ose familje.">
+  <title>Umre e Personalizuar nga Shqipëria | UMRA Travel</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/umra-logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
       <a class="brand" href="index.html" aria-label="UMRA Travel – faqja kryesore"><img src="assets/images/umra-logo.svg" alt="UMRA Travel"></a>
       <button class="menu-toggle" id="menuToggle" aria-label="Hap menunë" aria-expanded="false"><span></span><span></span></button>
       <nav class="main-nav" id="mainNav" aria-label="Menuja kryesore">
-        <a href="index.html">Kryefaqja</a><a href="paketa.html">Paketa</a><a class="is-active" href="personalizuar.html">Umre e personalizuar</a><a href="rreth-umres.html">Rreth Umres</a><a href="index.html#pyetje">Pyetje të shpeshta</a><a href="kontakt.html">Kontakt</a><a class="nav-cta" href="paketa.html">Gjej udhëtimin <span>↗</span></a>
+        <a href="index.html">Kryefaqja</a><a href="paketa.html">Paketa</a><a class="is-active" href="personalizuar.html">Umre e personalizuar</a><a href="rreth-umres.html">Rreth Umres</a><a href="index.html#pyetje">Pyetje të shpeshta</a><a href="kontakt.html">Kontakt</a><a class="nav-cta" href="personalizuar.html">Planifiko Umren <span><svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7"/></svg></span></a>
       </nav>
     </div>
   </header>
@@ -46,10 +46,11 @@
     <section class="custom-request-section">
       <div class="wrap custom-request-layout">
         <div class="custom-info">
-          <div class="custom-photo-pair" aria-label="Pamje nga Meka dhe Medina">
-            <img src="assets/images/hero-kaaba-arch.jpg" alt="Qabja në Mesxhid al-Haram, Mekë" loading="lazy">
-            <img src="assets/images/hero-prayer-beads.jpg" alt="Tespihe para Qabes në Mekë" loading="lazy">
+          <div class="custom-photo-pair" aria-label="Meka dhe Medina, destinacionet e Umres">
+            <img src="assets/images/mecca-clocktower.jpg" alt="Pamje nga Meka dhe Mesxhid al-Harami" loading="lazy">
+            <img src="assets/images/medina-courtyard.jpg" alt="Oborri i Xhamisë së Profetit në Medinë" loading="lazy">
           </div>
+          <button class="custom-flyer-open flyer-open" type="button" data-flyers='["assets/images/custom-umra-poster.jpg","assets/images/mecca-clocktower.jpg","assets/images/medina-courtyard.jpg"]' aria-label="Shiko fletushkën dhe fotot e Umres së personalizuar"><img src="assets/images/custom-umra-poster.jpg" alt="Fletushka e UMRA Travel për Umren e personalizuar" loading="lazy"><span>Shiko fletushkën e Umres së personalizuar <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7"/></svg></span></button>
           <div class="custom-steps">
             <article class="custom-step"><span>1</span><div><h2>Na tregoni çfarë dëshironi</h2><p>Datat, aeroportin, hotelin dhe sa ditë dëshironi të qëndroni.</p></div></article>
             <article class="custom-step"><span>2</span><div><h2>Ne përgatisim ofertën</h2><p>Ju dërgojmë një plan të përshtatur me kërkesat tuaja.</p></div></article>
@@ -68,7 +69,7 @@
           <div class="form-field"><label for="custom-stay">Ditët në Mekë / Medinë</label><input id="custom-stay" name="stay-days" placeholder="p.sh. 6 / 3 ditë"></div>
           <div class="form-field"><label for="custom-hotel">Hoteli dhe dhoma</label><input id="custom-hotel" name="hotel" placeholder="Preferenca për hotelin ose dhomën"></div>
           <div class="form-field full"><label for="custom-message">Kërkesa të tjera</label><textarea id="custom-message" name="message" placeholder="Na tregoni për shërbimet ose preferencat tuaja"></textarea></div>
-          <div class="form-field full custom-submit-wrap"><button class="button form-submit" type="submit">Dërgo kërkesën në WhatsApp <span>↗</span></button><p class="form-note">Mesazhi hapet në WhatsApp dhe dërgohet vetëm pasi ta kontrollosh e ta konfirmosh.</p><a class="success-panel" data-whatsapp-result href="#" target="_blank" rel="noopener" hidden>Vazhdo në WhatsApp për t’ia dërguar kërkesën UMRA Travel ↗</a></div>
+          <div class="form-field full custom-submit-wrap"><button class="button form-submit" type="submit">Dërgo kërkesën në WhatsApp <span><svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7"/></svg></span></button><p class="form-note">Mesazhi hapet në WhatsApp dhe dërgohet vetëm pasi ta kontrollosh e ta konfirmosh.</p><a class="success-panel" data-whatsapp-result href="#" target="_blank" rel="noopener" hidden>Vazhdo në WhatsApp për t’ia dërguar kërkesën UMRA Travel <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7"/></svg></a></div>
         </form>
       </div>
     </section>
@@ -78,7 +79,7 @@
       <div class="footer-brand"><a class="brand footer-brand-link" href="index.html"><img src="assets/images/umra-logo.svg" alt="UMRA Travel"></a><p>Organizim udhëtimesh për Umre në Mekë dhe Medinë.</p></div>
       <div><h3>Eksploro</h3><a href="paketa.html">Paketat e Umres</a><a href="personalizuar.html">Umre e personalizuar</a><a href="rreth-umres.html">Rreth Umres dhe Haxhit</a><a href="kontakt.html">Na kontakto</a></div>
       <div><h3>Kontakti</h3><a href="tel:+355686000655">+355 68 600 0655</a><a href="https://wa.me/355683195901">WhatsApp +355 68 319 5901</a><a href="mailto:albaniaumra@gmail.com">albaniaumra@gmail.com</a></div>
-      <div><h3>Na ndiq</h3><a href="https://www.instagram.com/umratravel/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://www.facebook.com/umratravelalbania/" target="_blank" rel="noopener">Facebook ↗</a></div>
+      <div><h3>Na ndiq</h3><a href="https://www.instagram.com/umratravel/" target="_blank" rel="noopener">Instagram <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7"/></svg></a><a href="https://www.facebook.com/umratravelalbania/" target="_blank" rel="noopener">Facebook <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7"/></svg></a></div>
     </div>
     <div class="footer-bottom wrap"><span>© 2026 UMRA Travel. Të gjitha të drejtat e rezervuara.</span><span>Shqipëri <b>·</b> Mekë <b>·</b> Medinë</span></div>
   </footer>

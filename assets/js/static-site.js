@@ -1,6 +1,32 @@
 (() => {
   const packages = window.UMRA_PACKAGES || [];
   const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  const heroAudio = document.querySelector('[data-site-audio]');
+  if (heroAudio) {
+    let heroVisible = true;
+    const playWhenVisible = () => {
+      if (!heroVisible || !heroAudio.paused) return;
+      heroAudio.play().catch(() => {});
+    };
+    const unlockAudioOnInteraction = () => {
+      playWhenVisible();
+      document.removeEventListener('pointerdown', unlockAudioOnInteraction);
+      document.removeEventListener('keydown', unlockAudioOnInteraction);
+    };
+    heroAudio.volume = 0.58;
+    document.addEventListener('pointerdown', unlockAudioOnInteraction, {once: true, passive: true});
+    document.addEventListener('keydown', unlockAudioOnInteraction, {once: true});
+    const heroSection = heroAudio.closest('.hero');
+    if ('IntersectionObserver' in window && heroSection) {
+      const audioVisibility = new IntersectionObserver(entries => {
+        heroVisible = entries[0].isIntersecting && entries[0].intersectionRatio >= 0.08;
+        if (heroVisible) playWhenVisible();
+        else heroAudio.pause();
+      }, {threshold: [0, 0.08, 0.25]});
+      audioVisibility.observe(heroSection);
+    }
+    playWhenVisible();
+  }
   const icon = name => {
     const paths = {
       plane: '<path d="m3 12 18-5-6 6 2 5-4-3-3 4 1-6-8-1Z"/>',
@@ -56,14 +82,13 @@
   flyerModal.setAttribute('aria-modal', 'true');
   flyerModal.setAttribute('aria-label', 'Fotot dhe fletushka e paketës');
   flyerModal.setAttribute('aria-hidden', 'true');
-  flyerModal.innerHTML = `<div class="flyer-backdrop" data-flyer-close></div><div class="flyer-dialog"><button class="flyer-close" type="button" data-flyer-close aria-label="Mbyll fotot">×</button><button class="flyer-arrow flyer-prev" type="button" aria-label="Fotoja e mëparshme">‹</button><img class="flyer-image" src="" alt="Foto ose fletushkë e paketës"><button class="flyer-arrow flyer-next" type="button" aria-label="Fotoja tjetër">›</button><div class="flyer-count" aria-live="polite"></div></div>`;
+  flyerModal.innerHTML = `<div class="flyer-backdrop" data-flyer-close></div><div class="flyer-dialog" role="group" aria-roledescription="carousel"><button class="flyer-close" type="button" data-flyer-close aria-label="Mbyll fotot">×</button><button class="flyer-arrow flyer-prev" type="button" data-flyer-step="-1" aria-label="Fotoja e mëparshme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button><img class="flyer-image" src="" alt="Foto ose fletushkë e paketës" draggable="false"><button class="flyer-arrow flyer-next" type="button" data-flyer-step="1" aria-label="Fotoja tjetër"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button><div class="flyer-count" aria-live="polite"></div><div class="flyer-pagination" aria-label="Zgjidh foton"></div></div>`;
   document.body.append(flyerModal);
   const flyerImage = flyerModal.querySelector('.flyer-image');
   const flyerCount = flyerModal.querySelector('.flyer-count');
   const flyerDialog = flyerModal.querySelector('.flyer-dialog');
   const flyerCloseButtons = flyerModal.querySelectorAll('[data-flyer-close]');
-  const flyerPrev = flyerModal.querySelector('.flyer-prev');
-  const flyerNext = flyerModal.querySelector('.flyer-next');
+  const flyerPagination = flyerModal.querySelector('.flyer-pagination');
   let activeFlyers = [];
   let flyerIndex = 0;
   let lastFlyerTrigger = null;
@@ -74,6 +99,8 @@
     flyerCount.textContent = activeFlyers.length > 1 ? `${flyerIndex + 1} / ${activeFlyers.length}` : '';
     flyerModal.querySelector('.flyer-prev').hidden = activeFlyers.length < 2;
     flyerModal.querySelector('.flyer-next').hidden = activeFlyers.length < 2;
+    flyerPagination.hidden = activeFlyers.length < 2;
+    flyerPagination.innerHTML = activeFlyers.map((_, index) => `<button class="flyer-dot${index === flyerIndex ? ' is-active' : ''}" type="button" data-flyer-index="${index}" aria-label="Shiko foton ${index + 1}"${index === flyerIndex ? ' aria-current="true"' : ''}><span></span></button>`).join('');
   };
   const closeFlyer = () => {
     if (flyerModal.hidden) return;
@@ -107,10 +134,19 @@
     closeFlyer();
   }));
   flyerModal.addEventListener('click', event => {
+    const control = event.target instanceof Element ? event.target.closest('[data-flyer-step], [data-flyer-index]') : null;
+    if (control) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (control.hasAttribute('data-flyer-step')) stepFlyer(Number(control.dataset.flyerStep));
+      else {
+        flyerIndex = Number(control.dataset.flyerIndex);
+        renderFlyer();
+      }
+      return;
+    }
     if (event.target === flyerModal) closeFlyer();
   });
-  flyerPrev.addEventListener('click', () => stepFlyer(-1));
-  flyerNext.addEventListener('click', () => stepFlyer(1));
   document.addEventListener('keydown', event => {
     if (flyerModal.hidden) return;
     if (event.key === 'Escape') closeFlyer();
@@ -129,8 +165,11 @@
       }
     }
   });
-  flyerImage.addEventListener('pointerdown', event => { touchStartX = event.clientX; });
-  flyerImage.addEventListener('pointerup', event => {
+  flyerDialog.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'mouse' || (event.target instanceof Element && event.target.closest('button'))) return;
+    touchStartX = event.clientX;
+  });
+  flyerDialog.addEventListener('pointerup', event => {
     if (touchStartX === null || activeFlyers.length < 2) return;
     const delta = event.clientX - touchStartX;
     touchStartX = null;
@@ -138,6 +177,7 @@
     flyerIndex = (flyerIndex + (delta < 0 ? 1 : -1) + activeFlyers.length) % activeFlyers.length;
     renderFlyer();
   });
+  flyerDialog.addEventListener('pointercancel', () => { touchStartX = null; });
 
   const packagePage = document.querySelector('[data-package-detail]');
   if (packagePage) {
@@ -152,29 +192,54 @@
         <div class="detail-price"><small>${quote ? 'Çmimi sipas kërkesës' : 'Çmimi fillestar, për person'}</small><strong>${esc(item.price)}</strong></div>
         ${prices(item)}
         <ul class="feature-list">${item.features.map(feature => `<li>${esc(feature)}</li>`).join('')}</ul>
-        <div class="detail-actions"><a class="button button-dark" href="${bookingHref}">${bookingLabel} <span>↗</span></a><button class="button button-light flyer-open" type="button" data-flyers="${esc(JSON.stringify(item.flyers || []))}" aria-label="Shiko fotot dhe fletushkën: ${esc(item.title)}">Foto / fletushkë</button></div>
+        <div class="detail-actions"><a class="button button-dark" href="${bookingHref}">${bookingLabel} <span><svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7"/></svg></span></a><button class="button button-light flyer-open" type="button" data-flyers="${esc(JSON.stringify(item.flyers || []))}" aria-label="Shiko fotot dhe fletushkën: ${esc(item.title)}">Foto / fletushkë</button></div>
       </div></div></div>`;
       document.querySelector('[data-listing-view]')?.setAttribute('hidden', '');
       packagePage.removeAttribute('hidden');
       document.querySelector('[data-package-page-title]')?.replaceChildren(document.createTextNode(item.title));
-      document.title = `${item.title} | UMRA Travel`;
+      const detailTitle = `${item.title} · Paketë Umre | UMRA Travel`;
+      const detailDescription = `${item.title}, ${item.date}. ${item.description}`.slice(0, 155);
+      document.title = detailTitle;
+      document.querySelector('meta[name="description"]')?.setAttribute('content', detailDescription);
+      document.querySelector('meta[property="og:title"]')?.setAttribute('content', detailTitle);
+      document.querySelector('meta[property="og:description"]')?.setAttribute('content', detailDescription);
+      document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', detailTitle);
+      document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', detailDescription);
     }
   }
 
   const bookingForm = document.querySelector('[data-booking-form]');
   if (bookingForm) {
     const select = bookingForm.querySelector('[name="package"]');
+    const roomSelect = bookingForm.querySelector('[name="room-occupancy"]');
+    const roomPriceNote = bookingForm.querySelector('[data-room-price-note]');
+    const personsSelect = bookingForm.querySelector('[name="persons"]');
     const bookablePackages = packages.filter(p => p.slug !== 'umre-e-personalizuar');
     const query = new URLSearchParams(window.location.search).get('paketa');
     select.innerHTML = bookablePackages.map(p => `<option value="${esc(p.slug)}">${esc(p.title)} · ${esc(p.date)}</option>`).join('');
     if (query && bookablePackages.some(p => p.slug === query)) select.value = query;
     const summary = document.querySelector('[data-booking-summary]');
+    const roomNumber = row => Number((row?.label.match(/(\d+)/) || [])[1]);
+    const priceForRoom = (item, occupancy) => (item?.priceRows || []).find(row => roomNumber(row) === Number(occupancy));
+    const updateRoomOptions = item => {
+      if (!roomSelect) return;
+      const currentValue = roomSelect.value;
+      const rows = [...(item?.priceRows || [])].sort((a, b) => roomNumber(a) - roomNumber(b));
+      roomSelect.innerHTML = rows.map(row => `<option value="${roomNumber(row)}">${roomNumber(row)} persona në dhomë · ${esc(row.price.replace(/\s*\/\s*person/i, ''))} / person</option>`).join('');
+      const defaultRoom = rows.find(row => roomNumber(row) === 4) || rows[0] || {label: '4'};
+      roomSelect.value = rows.some(row => String(roomNumber(row)) === currentValue) ? currentValue : String(roomNumber(defaultRoom));
+    };
     const updateSummary = () => {
       const p = packages.find(item => item.slug === select.value);
       if (!p || !summary) return;
-      summary.innerHTML = `<img src="${esc(p.image)}" alt="" loading="lazy"><p class="eyebrow" style="margin:15px 0 0">${esc(p.tag)}</p><h2>${esc(p.title)}</h2><div class="date">${esc(p.date)}</div><p>${esc(p.summary)}</p><p>Çmimi: <strong>${esc(p.price)}</strong>${p.price.toLowerCase().includes('kontaktoni') ? '' : ' / person'}</p>${prices(p)}`;
+      updateRoomOptions(p);
+      const selectedRoom = priceForRoom(p, roomSelect?.value);
+      if (roomPriceNote) roomPriceNote.textContent = selectedRoom ? `${selectedRoom.label} · ${selectedRoom.price}` : '';
+      summary.innerHTML = `<img src="${esc(p.image)}" alt="" loading="lazy"><p class="eyebrow" style="margin:15px 0 0">${esc(p.tag)}</p><h2>${esc(p.title)}</h2><div class="date">${esc(p.date)}</div><p>${esc(p.description || p.summary)}</p><p>Çmimi: <strong>${esc(p.price)}</strong>${p.price.toLowerCase().includes('kontaktoni') ? '' : ' / person'}</p>${prices(p)}<h3 class="booking-inclusions-title">Përfshihet në paketë</h3><ul class="booking-inclusions">${(p.features || []).map(feature => `<li>${esc(feature)}</li>`).join('')}</ul>`;
     };
     select.addEventListener('change', updateSummary);
+    roomSelect?.addEventListener('change', updateSummary);
+    personsSelect?.addEventListener('change', updateSummary);
     updateSummary();
   }
 
@@ -195,7 +260,9 @@
         message = `Përshëndetje UMRA Travel!\nDëshiroj një ofertë për Umre të personalizuar.\n\nEmri: ${data.get('name')}\nTelefoni: ${data.get('phone')}\nEmail: ${data.get('email') || 'Nuk u dha'}\nAeroporti i nisjes: ${data.get('airport') || 'Sipas preferencës'}\nUdhëtarë: ${data.get('persons') || 'Nuk u specifikua'}\nData e nisjes: ${data.get('travel-date') || 'Fleksibël'}\nQëndrimi në Mekë / Medinë: ${data.get('stay-days') || 'Sipas ofertës'}\nHoteli: ${data.get('hotel') || 'Sipas preferencës'}\nKërkesa të tjera: ${data.get('message') || 'Nuk ka'}`;
       } else if (whatsappForm.hasAttribute('data-booking-form')) {
         const item = packages.find(p => p.slug === data.get('package'));
-        message = `Përshëndetje UMRA Travel!\nDëshiroj informacion për rezervim.\n\nPaketa: ${item?.title || ''}\nData e paketës: ${item?.date || ''}\nEmri: ${data.get('name')}\nTelefoni: ${data.get('phone')}\nEmail: ${data.get('email') || 'Nuk u dha'}\nUdhëtarë: ${data.get('persons')}\nAeroporti i nisjes: ${data.get('airport') || 'Sipas paketës'}\nDatat e preferuara: ${data.get('travel-dates') || 'Sipas paketës'}\nKohëzgjatja: ${data.get('duration') || 'Sipas paketës'}\nHoteli / dhoma: ${data.get('hotel-room') || 'Pa preferencë'}\nKërkesë shtesë: ${data.get('message') || 'Nuk ka'}`;
+        const occupancy = Number(data.get('room-occupancy'));
+        const roomRow = (item?.priceRows || []).find(row => Number((row.label.match(/(\d+)/) || [])[1]) === occupancy);
+        message = `Përshëndetje UMRA Travel!\nDëshiroj informacion për rezervim.\n\nPaketa: ${item?.title || ''}\nData e paketës: ${item?.date || ''}\nEmri: ${data.get('name')}\nTelefoni: ${data.get('phone')}\nEmail: ${data.get('email') || 'Nuk u dha'}\nUdhëtarë gjithsej: ${data.get('persons')}\nDhoma: ${roomRow?.label || `${occupancy} persona në dhomë`}\nÇmimi: ${roomRow?.price || 'Ju lutem më dërgoni ofertën'}\nKërkesë shtesë: ${data.get('message') || 'Nuk ka'}`;
       } else {
         message = `Përshëndetje UMRA Travel!\nPo ju kontaktoj nga faqja web.\n\nEmri: ${data.get('name')}\nTelefoni: ${data.get('phone')}\nEmail: ${data.get('email') || 'Nuk u dha'}\nArsyeja: ${data.get('topic') || 'Pyetje e përgjithshme'}\n\nMesazhi: ${data.get('message')}`;
       }

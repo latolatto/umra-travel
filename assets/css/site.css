@@ -84,6 +84,43 @@
 .flyer-backdrop{z-index:0}
 .flyer-dialog{z-index:1}
 .flyer-close,.flyer-arrow{z-index:2}
+
+.season-guide{gap:12px;padding:12px 15px}
+.season-guide-portrait{width:48px;height:48px;flex:none;object-fit:cover;object-position:center 24%;border:1px solid #e5c75f;border-radius:50%}
+.about-mission{overflow:hidden}
+.about-image img{object-position:center 46%}
+.about-mission .story-copy h2{max-width:600px}
+.about-mission .story-copy .text-link{margin-top:10px}
+.custom-flyer-open{display:grid;grid-template-columns:82px 1fr;align-items:center;gap:14px;width:100%;margin:0 0 16px;padding:10px;border:1px solid #e3cc7d66;border-radius:10px;background:#073f4014;color:var(--petrol);text-align:left;cursor:pointer;transition:transform .2s,border-color .2s,background .2s}
+.custom-flyer-open:hover{transform:translateY(-2px);border-color:#c5a648;background:#073f401f}
+.custom-flyer-open img{width:82px;height:108px;object-fit:cover;object-position:center top;border-radius:5px}
+.custom-flyer-open span{display:flex;align-items:center;gap:9px;color:var(--petrol);font-size:10px;font-weight:800;line-height:1.5}
+.custom-flyer-open .arrow-icon{flex:none}
+.room-price-note{min-height:14px;margin:0;color:#8a7441;font-size:9px;line-height:1.5}
+.booking-inclusions-title{margin:17px 0 8px;color:var(--gold-light);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.booking-inclusions{display:grid;gap:7px;margin:0;padding:0;list-style:none}
+.booking-inclusions li{position:relative;padding-left:15px;color:#d2ded7;font-size:10px;line-height:1.6}
+.booking-inclusions li:before{position:absolute;left:0;color:var(--gold-light);content:"✓";font-weight:800}
+.custom-flyer-open:focus-visible{outline:2px solid #d6ba66;outline-offset:3px}
+.contact-intro h2{margin:0 0 19px;color:var(--petrol);font:500 clamp(38px,4.5vw,58px)/1.11 var(--serif);letter-spacing:-.035em}
+@media(max-width:760px){.season-guide{padding:11px 12px}.season-guide-portrait{width:43px;height:43px}.custom-flyer-open{grid-template-columns:70px 1fr}.custom-flyer-open img{width:70px;height:96px}.about-image{min-height:300px}}
+
+/* Bold geometric display type follows the UMRA Travel wordmark. */
+h1,h2,h3{font-family:var(--sans)!important;font-size-adjust:none;font-style:normal!important;font-weight:700!important;letter-spacing:-.045em}
+h1 em,h2 em,h3 em{font-style:normal!important;font-weight:800!important}
+.flyer-dialog{touch-action:pan-y}
+.flyer-image{user-select:none;-webkit-user-drag:none;touch-action:pan-y}
+.flyer-arrow{cursor:pointer;touch-action:manipulation}
+.flyer-arrow svg{display:block;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.flyer-pagination{position:absolute;right:0;bottom:13px;left:0;z-index:3;display:flex;justify-content:center;gap:7px}
+.flyer-pagination[hidden]{display:none}
+.flyer-dot{display:grid;width:27px;height:27px;place-items:center;border:0;border-radius:50%;background:transparent;cursor:pointer;touch-action:manipulation}
+.flyer-dot span{width:7px;height:7px;border:1px solid #ead69f;border-radius:50%;background:transparent;transition:transform .2s,background .2s}
+.flyer-dot.is-active span{transform:scale(1.2);background:#ead69f}
+.flyer-dot:focus-visible{outline:1px solid #ead69f;outline-offset:1px}
+.flyer-count{bottom:43px}
+@media(max-width:760px){.flyer-dialog{touch-action:pan-y}.flyer-pagination{bottom:8px}.flyer-count{bottom:37px}.flyer-dot{width:30px;height:30px}}
+.arrow-icon{display:inline-block;width:12px;height:12px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.12em}
 @media(max-width:760px){.medina-layout,.hajj-inner{grid-template-columns:1fr;gap:25px}.medina-photo img{height:min(72vw,390px)}.medina-copy h2{font-size:42px}.hajj-guide{max-width:560px}.hajj-guide img{max-height:470px}}
 @media(prefers-reduced-motion:reduce){.flyer-dialog,.flyer-image{scroll-behavior:auto}}
 
