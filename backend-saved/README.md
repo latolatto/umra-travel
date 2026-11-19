@@ -1,0 +1,1 @@
+Saved PHP backend for later activation. The files are a preserved copy of the prior PHP app. Do not publish this directory as part of the static site. Restore the PHP pages, inc/, data/, and backend-saved/assets/ to the site root on a PHP 8+ host when backend functionality is needed.

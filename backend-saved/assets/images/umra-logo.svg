@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="300 410 1440 1440" role="img" aria-labelledby="title">
+  <title id="title">UMRA Travel</title>
+  <defs>
+    <filter id="transparent-petrol" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  1.7 0 0 0 -0.12"/>
+    </filter>
+  </defs>
+  <image href="umra-logo-source.jpg" x="0" y="0" width="2048" height="2048" preserveAspectRatio="none" filter="url(#transparent-petrol)"/>
+</svg>

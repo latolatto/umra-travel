@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "umre-3-11-nentor-2026",
+    "title": "Umre në Nëntor",
+    "tag": "Grup · Vjeshtë 2026",
+    "date": "3 – 11 Nëntor 2026",
+    "price": "960 €",
+    "summary": "Një udhëtim i organizuar në Mekë dhe Medinë, me shoqërim gjatë gjithë përjetimit.",
+    "description": "Nisuni drejt vendeve të shenjta me një grup të organizuar dhe mbështetje në çdo hap. Paketa përfshin vizën, hotelet në Mekë e Medinë, transportin lokal, trenin ekspres dhe udhëheqësin e grupit.",
+    "features": ["Vizë 1-vjeçare", "Hotele në Mekë dhe Medinë", "Transport lokal", "Tren ekspres Haramain", "Udhëheqës grupi", "10 € nga çdo udhëtar për sadaka"],
+    "image": "assets/images/umra-package-poster.jpg",
+    "active": false
+  },
+  {
+    "slug": "umre-20-28-nentor-2026",
+    "title": "Umre në Nëntor",
+    "tag": "Grup · Vjeshtë 2026",
+    "date": "20 – 28 Nëntor 2026",
+    "price": "960 €",
+    "summary": "Ditë për adhurim dhe vizita në Mekë e Medinë, me organizim të kujdesshëm nga nisja.",
+    "description": "Një udhëtim në grup me detajet kryesore të organizuara paraprakisht. Përfshihen viza, akomodimi në Mekë dhe Medinë, transporti lokal, udhëtimi me trenin ekspres dhe udhëheqja e grupit.",
+    "features": ["Vizë 1-vjeçare", "Hotele në Mekë dhe Medinë", "Transport lokal", "Tren ekspres Haramain", "Udhëheqës grupi", "Çmimi fillon nga 960 € për person"],
+    "image": "assets/images/included-poster.jpg",
+    "active": true
+  },
+  {
+    "slug": "umre-16-26-dhjetor-2026",
+    "title": "Umre në Dhjetor",
+    "tag": "Grup · Dimër 2026",
+    "date": "16 – 26 Dhjetor 2026",
+    "price": "960 €",
+    "summary": "Një mundësi për ta mbyllur vitin me një udhëtim me kuptim të veçantë.",
+    "description": "Paketë në grup për në Mekë dhe Medinë. Organizimi përfshin vizën, hotelet, transportin lokal, trenin ekspres Haramain dhe shoqërimin e grupit. Na kontaktoni për konfirmimin e çmimit dhe vendeve të lira.",
+    "features": ["Vizë 1-vjeçare", "Hotele në Mekë dhe Medinë", "Transport lokal", "Tren ekspres Haramain", "Udhëheqës grupi", "Çmimi fillon nga 960 € për person"],
+    "image": "assets/images/umra-package-poster.jpg",
+    "active": true
+  },
+  {
+    "slug": "umre-ramazan-14-22-shkurt-2027",
+    "title": "Umre në Ramazan",
+    "tag": "Ramazan 2027",
+    "date": "14 – 22 Shkurt 2027",
+    "price": "1,040 €",
+    "summary": "Përjetoni ditë të veçanta pranë Qabes, me Iftar dhe Syfyr të përfshirë.",
+    "description": "Paketë Ramazani me fluturim Aegean Airlines në itinerarin Tiranë–Athinë–Xhide, bagazh, vizë, hotel në Mekë, Iftar dhe Syfyr, si dhe transport lokal. Konfirmoni hollësitë e akomodimit me agjencinë.",
+    "features": ["Fluturim Aegean Airlines: Tiranë – Athinë – Xhide", "Valixhe 23 kg dhe çantë dore 8 kg", "Vizë 1-vjeçare", "Hotel në Mekë", "Iftar dhe Syfyr", "Transport lokal", "Ihram dhe ujë Zemzem", "10 € nga çdo udhëtar për sadaka"],
+    "image": "assets/images/ramadan-poster.jpg",
+    "active": true
+  },
+  {
+    "slug": "umre-fundi-ramazanit-2027",
+    "title": "Umre në fund të Ramazanit",
+    "tag": "Ramazan 2027",
+    "date": "25 Shkurt – 5 Mars 2027",
+    "price": "1,150 €",
+    "summary": "Zgjidhni dhomën sipas nevojës; Iftari dhe Syfyri janë të përfshira në paketë.",
+    "description": "Paketë në Mekë gjatë Ramazanit me fluturim Aegean Airlines, bagazh, vizë 1-vjeçare, hotel, Iftar dhe Syfyr, transport lokal, Ihram dhe ujë Zemzem. Çmimi ndryshon sipas numrit të shtretërve në dhomë.",
+    "features": ["Fluturim Aegean Airlines: Tiranë – Athinë – Xhide", "Valixhe 23 kg dhe çantë shpine 8 kg", "Vizë 1-vjeçare", "Hotel në Mekë", "Iftar dhe Syfyr", "Transport lokal", "Ihram dhe ujë Zemzem", "Dhomë me 4 shtretër: 1,150 € / person", "Dhomë me 3 shtretër: 1,250 € / person", "Dhomë me 2 shtretër: 1,350 € / person", "10 € nga çdo udhëtar për sadaka"],
+    "image": "assets/images/ramadan-poster.jpg",
+    "active": true
+  },
+  {
+    "slug": "umre-e-personalizuar",
+    "title": "Umre e personalizuar",
+    "tag": "Individë · Familje · Grupe",
+    "date": "Datat i zgjidhni ju",
+    "price": "Na kontaktoni",
+    "summary": "Përzgjidhni datat, aeroportin, hotelin, kohëzgjatjen dhe shërbimet që ju përshtaten.",
+    "description": "UMRA Travel organizon Umren e personalizuar për individë dhe familje. Ju zgjidhni datat, aeroportin e nisjes, hotelin, kohëzgjatjen e qëndrimit në Mekë e Medinë dhe shërbimet shtesë. Ne ju ndihmojmë të planifikoni hollësitë.",
+    "features": ["Data fleksibël", "Zgjedhje e aeroportit të nisjes", "Përzgjedhje hoteli", "Kohëzgjatje sipas kërkesës", "Organizim për individë dhe familje"],
+    "image": "assets/images/custom-umra-poster.jpg",
+    "active": true
+  }
+]
